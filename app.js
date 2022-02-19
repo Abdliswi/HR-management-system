@@ -1,26 +1,28 @@
-function hrMangment (id,fullName,department,level){
+function HrMangment (id,fullName,img,department,level){
     this.id=id;
     this.fullName=fullName;
-    this.img=`./imgs/${this.fullName}.jpg`;
+    this.img= img;
     this.department=department;
-    this.level=level
-}
+    this.level=level;
+    console.log(this)
+};
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-  }
+  };
+//"/home/ahmad/HR-management-system/imgs"
+//picture name shouldnt have a space in side it
+const employ0 = new HrMangment(1000,"Ghazi Samer",`./imgs/Ghazi.jpg`,["Administration"],["Senior"]);
+const employ1 = new HrMangment(1001,"Lana Ali",`./imgs/Lana.jpg`,["Finance"],["Senior"]);
+const employ2 = new HrMangment(1002,"Tamara Ayoub",`./imgs/tamara.jpg`,["Marketing"],["Senior"]);
+const employ3 = new HrMangment(1003,"Safi Walid",`./imgs/Safi.jpg`,["Administration"],["Mid-Senior"]);
+const employ4 = new HrMangment(1004,"Omar Zaid",`./imgs/Omar.jpg`,["Development"],["Senior"]);
+const employ5 = new HrMangment(1005,"Rana Saleh",`./imgs/Rana.jpg`,["Development"],["Junior"]);
+const employ6 = new HrMangment(1006,"Hadi Ahmad",`./imgs/Hadi.jpg`,["Finance"],["Mid-Senior"]);
 
-const employ0 = new hrMangment(1000,"Ghazi Samer",["Administration"],["Senior"]);
-const employ1 = new hrMangment(1001,"Lana Ali",["Finance"],["Senior"]);
-const employ2 = new hrMangment(1002,"Tamara Ayoub",["Marketing"],["Senior"]);
-const employ3 = new hrMangment(1003,"Safi Walid",["Administration"],["Mid-Senior"]);
-const employ4 = new hrMangment(1004,"Omar Zaid",["Development"],["Senior"]);
-const employ5 = new hrMangment(1005,"Rana Saleh",["Development"],["Junior"]);
-const employ6 = new hrMangment(1006,"Hadi Ahmad",["Finance"],["Mid-Senior"]);
-
-hrMangment.prototype.Salary=function(){
+HrMangment.prototype.Salary=function(){
 
     let salary =0;
     let net=0;
@@ -42,15 +44,16 @@ hrMangment.prototype.Salary=function(){
        break;
    }
 
-   return salary;
+//    return salary; no need for return inside the prototype just put the property after this
+this.salary= salary -salary*0.075;//here i tell the constructer to put a salary property inside each object "this.property"
 }
 
-hrMangment.prototype.net=function(){
+// HrMangment.prototype.net=function(){
 
-tax =this.Salary()*.075;
-net=this.Salary() - tax;
-return net ;
-}
+// tax =this.Salary()*.075;
+// net=this.Salary() - tax;
+// return net ;
+// }
 
 employ0.Salary();
 employ1.Salary();
@@ -61,8 +64,38 @@ employ5.Salary();
 employ6.Salary();
 
 
-hrMangment.prototype.render =function(){
-    document.write(`<p><h2>"${this.fullName}" is an employee in our companey and its salary is : ${this.Salary()} $$</h2> </p>`)
+HrMangment.prototype.render =function(){
+    //document.write(`<p><h2>"${this.fullName}" is an employee in our companey and its salary is : ${this.Salary()} $$</h2> </p>`)
+//    let div=document.createElement('div');
+let mysection =document.getElementById("hi");
+
+//mysection.appendChild(div);
+//   let ele =document.createElement('p') ;
+//   div.appendChild(ele);
+//   ele.textContent=`${this.fullName} ${this.id} ${this.level} ${this.salary} ${this.department}`;
+
+  let divElem1 = document.createElement('div');
+  
+ mysection.appendChild(divElem1);
+
+ let img =document.createElement('img');
+   divElem1.appendChild(img);
+   img.setAttribute('src',this.img);
+
+
+   let pEle =document.createElement('p');
+   divElem1.append(pEle);
+   pEle.textContent=`name:${this.fullName} -ID:${this.id}`;
+
+   let pEle2=document.createElement('p')
+   divElem1.append(pEle2);
+   pEle2.textContent=`Department:${this.department}-Level:${this.level}`;
+
+   let pEle3=document.createElement('p');
+   divElem1.appendChild(pEle3);
+   pEle3.textContent=`${this.salary}`;
+//    console.log("render")
+
 }
 
 employ0.render();
@@ -73,4 +106,27 @@ employ4.render();
 employ5.render();
 employ6.render();
 
+////html event
+function func(){
+    let d =new Date().getTime().toString();
+    let id = d.slice(d.length-4);
+    return id;
+}
+let addEmploy = document.getElementById("addEmploy");
 
+addEmploy.addEventListener('submit',addEmployInfo);
+
+function addEmployInfo (event){
+    event.preventDefault();
+    let FullName =event.target.fullName.value;
+    let Department=event.target.select.value;
+    let Image=event.target.Imageurl.value ;
+    let level =event.target.selectLe.value;
+    console.log(FullName,Department,Image);
+
+
+    const employee = new HrMangment(func(),FullName,Image,Department,level);
+    employee.Salary();
+    employee.render();
+    console.log(employee);
+}
