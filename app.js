@@ -12,11 +12,10 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
   };
-//"/home/ahmad/HR-management-system/imgs"
-//picture name shouldnt have a space in side it
+
 const employ0 = new HrMangment(1000,"Ghazi Samer",`./imgs/Ghazi.jpg`,["Administration"],["Senior"]);
 const employ1 = new HrMangment(1001,"Lana Ali",`./imgs/Lana.jpg`,["Finance"],["Senior"]);
-const employ2 = new HrMangment(1002,"Tamara Ayoub",`./imgs/tamara.jpg`,["Marketing"],["Senior"]);
+const employ2 = new HrMangment(1002,"Tamara Ayoub",`./imgs/Lana.jpg`,["Marketing"],["Senior"]);
 const employ3 = new HrMangment(1003,"Safi Walid",`./imgs/Safi.jpg`,["Administration"],["Mid-Senior"]);
 const employ4 = new HrMangment(1004,"Omar Zaid",`./imgs/Omar.jpg`,["Development"],["Senior"]);
 const employ5 = new HrMangment(1005,"Rana Saleh",`./imgs/Rana.jpg`,["Development"],["Junior"]);
@@ -43,17 +42,9 @@ HrMangment.prototype.Salary=function(){
        
        break;
    }
-
-//    return salary; no need for return inside the prototype just put the property after this
-this.salary= salary -salary*0.075;//here i tell the constructer to put a salary property inside each object "this.property"
+this.salary= salary -salary*0.075;
 }
 
-// HrMangment.prototype.net=function(){
-
-// tax =this.Salary()*.075;
-// net=this.Salary() - tax;
-// return net ;
-// }
 
 employ0.Salary();
 employ1.Salary();
